@@ -1,0 +1,34 @@
+schema: '2.0'
+stages:
+  nettoyage:
+    cmd: python3.11 data/src/nettoyage.py
+    deps:
+    - path: data/raw/dataset.csv
+      hash: md5
+      md5: daf2d909e4af0760f6c0fb222b9e8d8b
+      size: 1846047
+    - path: data/src/nettoyage.py
+      hash: md5
+      md5: 0243a0c8ff17109981c0c010e6120ae2
+      size: 852
+    outs:
+    - path: data/processed/dataset_nettoye.csv
+      hash: md5
+      md5: daf2d909e4af0760f6c0fb222b9e8d8b
+      size: 1846047
+  vectorisation:
+    cmd: python3.11 src/vectorisation.py
+    deps:
+    - path: data/processed/dataset_nettoye.csv
+      hash: md5
+      md5: daf2d909e4af0760f6c0fb222b9e8d8b
+      size: 1846047
+    - path: src/vectorisation.py
+      hash: md5
+      md5: 7ccafd044d3c5c8ddc2d41058c1aa803
+      size: 823
+    outs:
+    - path: models/vectorisation.pkl
+      hash: md5
+      md5: 680004e4589d77ce82965fb10fee3949
+      size: 211364

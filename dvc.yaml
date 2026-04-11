@@ -1,0 +1,15 @@
+stages:
+  nettoyage:
+    cmd: python3.11 data/src/nettoyage.py
+    deps:
+    - data/raw/dataset.csv
+    - data/src/nettoyage.py
+    outs:
+    - data/processed/dataset_nettoye.csv
+  vectorisation:
+    cmd: python3.11 src/vectorisation.py
+    deps:
+    - data/processed/dataset_nettoye.csv
+    - src/vectorisation.py
+    outs:
+    - models/vectorisation.pkl
