@@ -13,3 +13,10 @@ stages:
     - src/vectorisation.py
     outs:
     - models/vectorisation.pkl
+  modelisation:
+    cmd: python3.11 src/modelisation.py
+    deps:
+    - data/processed/dataset_nettoye.csv
+    - src/modelisation.py
+    outs:
+    - results/predictions.csv

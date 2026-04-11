@@ -9,20 +9,20 @@ stages:
       size: 1846047
     - path: data/src/nettoyage.py
       hash: md5
-      md5: 0243a0c8ff17109981c0c010e6120ae2
-      size: 852
+      md5: c4d93bed683376ff7d12fb74a737cafe
+      size: 1465
     outs:
     - path: data/processed/dataset_nettoye.csv
       hash: md5
-      md5: daf2d909e4af0760f6c0fb222b9e8d8b
-      size: 1846047
+      md5: 8b5c0ba6b1dd9142ab10a3b84b553244
+      size: 1838418
   vectorisation:
     cmd: python3.11 src/vectorisation.py
     deps:
     - path: data/processed/dataset_nettoye.csv
       hash: md5
-      md5: daf2d909e4af0760f6c0fb222b9e8d8b
-      size: 1846047
+      md5: 8b5c0ba6b1dd9142ab10a3b84b553244
+      size: 1838418
     - path: src/vectorisation.py
       hash: md5
       md5: 7ccafd044d3c5c8ddc2d41058c1aa803
@@ -30,5 +30,21 @@ stages:
     outs:
     - path: models/vectorisation.pkl
       hash: md5
-      md5: 680004e4589d77ce82965fb10fee3949
+      md5: 7b2454a594c82e56ff4c7d052f00add6
       size: 211364
+  modelisation:
+    cmd: python3.11 src/modelisation.py
+    deps:
+    - path: data/processed/dataset_nettoye.csv
+      hash: md5
+      md5: 8b5c0ba6b1dd9142ab10a3b84b553244
+      size: 1838418
+    - path: src/modelisation.py
+      hash: md5
+      md5: 78707ae7fa7633cfc2a9949a973bb800
+      size: 2234
+    outs:
+    - path: results/predictions.csv
+      hash: md5
+      md5: cf1e55df5f476964f39004ad1d7b4298
+      size: 2057641
