@@ -1,6 +1,8 @@
 *.pkl
 *.model
 
+wandb/
+
 .env
 mon_env/
 __pycache__/
