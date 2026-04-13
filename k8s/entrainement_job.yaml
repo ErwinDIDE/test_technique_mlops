@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: entrainement-job
+  namespace: test-technique-mlops
+  annotations:
+    description: "Entrainement du modele TF_IDF avec max_features=5000"
+spec:
+  backoffLimit: 3 
+  template:
+    metadata:
+      labels:
+        component: entrainement
+        model-type: tfid-feature-5000
+    spec:
+      containers:
+      - name: entrainement-container
+        #Je n'ai pas push mon image sur Docker Hub il faudra le faire
+        image: mon-image-entrainement-docker 
+     
+        volumeMounts:
+        - name: stockage-model
+          mountPath: /app/models
+        - name: stockage-dataset
+          mountPath: /app/data/raw
+      #ne jamais redémmarer notre job s'il s'éxécute correctement
+      restartPolicy: OnFailure 
+      volumes:
+      - name: stockage-model
+        persistentVolumeClaim:
+          claimName: model-pvc
+      - name: stockage-dataset
+        persistentVolumeClaim:
+          claimName: dataset-pvc
+
+#il faudra créer plusieurs Dockerfiles pour mes images

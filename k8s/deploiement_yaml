@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-predictionsimilarite-deploiement
+  namespace: test-technique-mlops
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      component: api-predictionsimilarite
+  template:
+    metadata:
+      labels:
+        component: api-predictionsimilarite
+    spec:
+      containers:
+      - name: apipredictionsimilarite-container
+        image: mon-image-docker-api #jinsere limage 
+        ports:
+        - containerPort: 8000
+        volumeMounts:
+        - name: stockage-model
+          mountPath: /app/models
+          readOnly: true
+      volumes:
+      - name: stockage-model
+        persistentVolumeClaim:
+          claimName: model-pvc

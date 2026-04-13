@@ -1,0 +1,15 @@
+{
+  "os": "macOS-15.7.4-arm64-arm-64bit",
+  "python": "CPython 3.11.15",
+  "startedAt": "2026-04-11T20:54:01.105835Z",
+  "program": "notebooks/Untitled.ipynb",
+  "codePath": "notebooks/Untitled.ipynb",
+  "git": {
+    "commit": "ae569de9243aa44f505301035fcbaba8368cee8b"
+  },
+  "email": "didymedide0808@gmail.com",
+  "root": "/Users/dide/test_technique_mlops/notebooks",
+  "host": "MacBook-Air-de-DIDE.local",
+  "executable": "/Users/dide/test_technique_mlops/mon_env/bin/python",
+  "writerId": "o27iazyfuq6ytqedu9qtdrgqek0h5fh9"
+}

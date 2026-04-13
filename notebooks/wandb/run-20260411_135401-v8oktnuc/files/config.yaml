@@ -1,0 +1,50 @@
+_wandb:
+    value:
+        cli_version: 0.25.1
+        e:
+            o27iazyfuq6ytqedu9qtdrgqek0h5fh9:
+                codePath: notebooks/Untitled.ipynb
+                email: didymedide0808@gmail.com
+                executable: /Users/dide/test_technique_mlops/mon_env/bin/python
+                git:
+                    commit: ae569de9243aa44f505301035fcbaba8368cee8b
+                host: MacBook-Air-de-DIDE.local
+                os: macOS-15.7.4-arm64-arm-64bit
+                program: notebooks/Untitled.ipynb
+                python: CPython 3.11.15
+                root: /Users/dide/test_technique_mlops/notebooks
+                startedAt: "2026-04-11T20:54:01.105835Z"
+                writerId: o27iazyfuq6ytqedu9qtdrgqek0h5fh9
+        m: []
+        python_version: 3.11.15
+        t:
+            "1":
+                - 5
+                - 53
+                - 105
+            "2":
+                - 5
+                - 53
+                - 105
+            "3":
+                - 2
+                - 16
+            "4": 3.11.15
+            "5": 0.25.1
+            "8":
+                - 1
+            "12": 0.25.1
+            "13": darwin-arm64
+colonnes_dataset:
+    value:
+        - sentence_1
+        - sentence_2
+        - similarity_score
+dataset_size:
+    value: all
+max_features:
+    value: 5000
+model_type:
+    value: TF-IDF + Cosine
+nombredelignes_dataset:
+    value: 34560
