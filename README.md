@@ -23,3 +23,7 @@ ETAPE 1
 4-Lancer la commande bash sur le terminal pour injecter la variable dans le docker
 	docker run --env-file .env test_technique_mlops
 #Jai configuer le fichier .gitignore pour que notre clé ne soit pas visible sur git	
+
+ETAPE 5: TEST DE L'API
+taper la commande suivante:
+uvicorn api.main:app --reload
