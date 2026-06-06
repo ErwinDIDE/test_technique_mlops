@@ -3,6 +3,7 @@ import joblib
 from sklearn.metrics.pairwise import cosine_similarity
 import wandb
 import numpy as np
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 #initialisation de notre wb
 def run_modelisation_maxfeatures_5000():
@@ -31,22 +32,48 @@ def run_modelisation_maxfeatures_5000():
     #on va essayer d'afficher la similarité de notre premiere lige voir ce que ca donne
     print(f"La similarité des deux phrases de la premiere ligne est: {similarites[0]}")
     
-    #on sauvegarde le fichier de sortie dans le dossier /results
+    # CALCUL OPTIMISÉ (sans la boucle for)
+    # Calcule la similarité cosinus ligne par ligne de manière matricielle
+    # cos_sim = (A . B) / (||A|| * ||B||)
+    dot_products = np.array(vecteurs_1.multiply(vecteurs_2).sum(axis=1)).flatten()
+    norm_1 = np.array(np.sqrt(vecteurs_1.multiply(vecteurs_1).sum(axis=1))).flatten()
+    norm_2 = np.array(np.sqrt(vecteurs_2.multiply(vecteurs_2).sum(axis=1))).flatten()
+    
+    # Gestion de la division par zéro au cas où une phrase n'aurait aucun mot du vocabulaire
+    norms = norm_1 * norm_2
+    similarites = np.where(norms > 0, dot_products / norms, 0.0)
+
+    print(f"La similarité des deux phrases de la première ligne est: {similarites[0]}")
+    
+    # Sauvegarde du fichier de sortie dans le dossier /results
     df["prediction_score_similarite"] = similarites
     df.to_csv("results/predictions.csv", index=False)
-    print("Exportation faite")
+    print("Exportation faite dans results/predictions.csv")
 
+    # 4. CALCUL DES VRAIES MÉTRIQUES DE RÉGRESSION (MAE et MSE)
+    # On suppose que la vraie colonne s'appelle 'similarity_score' (à adapter selon ton CSV)
+    vrai_score = df["similarity_score"] 
+    
+    mse = mean_squared_error(vrai_score, similarites)
+    mae = mean_absolute_error(vrai_score, similarites)
+    
+    print(f"📊 ÉVALUATION -- MSE: {mse:.4f} | MAE: {mae:.4f}")
+
+    # Mise a jour de la config W&B
     wandb.config.update({
         "nombredelignes_dataset": len(df),
         "colonnes_dataset": list(df.columns)
     })
-    #on envoie ensuite les logging de notre model
+    
+    # Envoie des métriques dans W&B
     wandb.log({
-        "moyenne_similarite": np.mean(similarites),
-        "similarite_maximale": np.max(similarites)
+        "eval/MSE": mse,
+        "eval/MAE": mae,
+        "stats/moyenne_similarite": np.mean(similarites),
+        "stats/similarite_maximale": np.max(similarites)
     })
 
-    #jenregistre le fichier de sortie dans artefact de wangdb
+    # 6. Enregistrement du fichier de sortie dans les artefacts de W&B
     resultat_artifact = wandb.Artifact(
         name="predictions_maxfeatures_5000",
         type="predictions",
@@ -57,6 +84,5 @@ def run_modelisation_maxfeatures_5000():
  
     wandb.finish()
 
-run_modelisation_maxfeatures_5000()
-
-#mon script marche lors de l'éxécution et mon artifact est enregister dans wandb maintenant j'automative la pipeline avec dvc
+if __name__ == "__main__":
+    run_modelisation_maxfeatures_5000()
