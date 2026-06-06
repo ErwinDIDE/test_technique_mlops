@@ -9,6 +9,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 def run_modelisation_maxfeatures_5000():
     wandb.init(
         project="projet_test_technique_mlops_features5000",
+        name="Baseline_TF-IDF",
         config={
             "model_type": "TF-IDF + Cosine",
             "max_features": 5000,

@@ -3,7 +3,7 @@ docker build -t test_technique_mlops .
 
 ETAPE 3
 
-docker run -e WANDB_API_KEY=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 -v "$(pwd)/models:/app/models" -v "$(pwd)/results:/app/results" -v "$(pwd)/data:/app/data" test_technique_mlops
+docker run -e WANDB_API_KEY=<CLE_API_SANS_BALISES> -v "$(pwd)/models:/app/models" -v "$(pwd)/results:/app/results" -v "$(pwd)/data:/app/data" test_technique_mlops
 Dataset inclut dans le projet et versionné avec DVC
 
 ETAPE 1

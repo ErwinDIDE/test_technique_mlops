@@ -20,3 +20,10 @@ stages:
     - src/modelisation.py
     outs:
     - results/predictions.csv
+  modelisation_transformer:
+    cmd: python3.11 src/modelisation_transformer.py
+    deps:
+    - data/processed/dataset_nettoye.csv
+    - src/modelisation_transformer.py
+    outs:
+    - results/predictions_transformer.csv
